@@ -16,6 +16,7 @@ namespace prueba_conexion
         public Form1()
         {
             InitializeComponent();
+  
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -26,8 +27,8 @@ namespace prueba_conexion
         private void Conectar_Click(object sender, EventArgs e)
 
         {
-            //NpgsqlConnection conexion = new NpgsqlConnection("Server=localhost; User Id=postgres;Password=sinley143;Database=postgres");
-            NpgsqlConnection conexion = new NpgsqlConnection("Server=192.168.100.14;Port=5432; User Id=postgres;Password=Indivi2022*.;Database=postgres");
+            NpgsqlConnection conexion = new NpgsqlConnection("Server=localhost; User Id=postgres;Password=sinley143;Database=postgres");
+         
 
             try
             {
@@ -39,8 +40,6 @@ namespace prueba_conexion
             {
                 MessageBox.Show(ex.Message);
             }
-           
-           
         }
 
         private void Desconectar_Click(object sender, EventArgs e)
@@ -60,19 +59,12 @@ namespace prueba_conexion
             }
         }
 
-        private void datos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void Consultar_Click(object sender, EventArgs e)
         {
 
             NpgsqlConnection conexion = new NpgsqlConnection("Server=192.168.100.14;Port=5432; User Id=postgres;Password=Indivi2022*.;Database=Prueba");
             conexion.Open();
-
-
-            
 
             string query = "Select * from empleados";
 
@@ -87,8 +79,6 @@ namespace prueba_conexion
             datos.Columns["fechanacimiento"].DefaultCellStyle.Format = "dd/MM/yyyy";
             MessageBox.Show("Consulta Realizada");
 
-
-
             //string query = "Select * from empleados";
             //NpgsqlCommandBuilder comando = new NpgsqlCommandBuilder(query, conexion);
             //SqlDataAdapter data = new SqlDataAdapter(comando);
@@ -96,8 +86,6 @@ namespace prueba_conexion
             //data.Fill(tabla);
             //datos.DataSource = tabla;
             //MessageBox.Show("Consulta Realizada");
-
-
         }
 
         private void Insertar_Click(object sender, EventArgs e)
@@ -106,20 +94,24 @@ namespace prueba_conexion
             NpgsqlConnection conexion = new NpgsqlConnection("Server=192.168.100.14;Port=5432; User Id=postgres;Password=Indivi2022*.;Database=Prueba");
 
 
-            NpgsqlCommand altas = new NpgsqlCommand("insert into empleados(nombre,apellidopaterno,apellidomaterno,fechanacimiento,telefono,sueldo,puesto) values(@nombre,@apellidopaterno,@apellidomaterno,@fechanacimiento,@telefono,@sueldo,@puesto)",conexion);
+            NpgsqlCommand altas = new NpgsqlCommand("insert into empleados(idempleado,nombre,apellidopaterno,apellidomaterno,fechanacimiento,telefono,sueldo,puesto) values(@idempleado,@nombre,@apellidopaterno,@apellidomaterno,@fechanacimiento,@telefono,@sueldo,@puesto)",conexion);
            
             //converciones de datos
             string date = fechanacimiento.Text;
             DateTime dt = Convert.ToDateTime(date);
-            string tel = Convert.ToString(telefono.Text);
+            decimal tel = Convert.ToDecimal(telefono.Text);
+            decimal sueld = Convert.ToDecimal(sueldo.Text);
+            decimal empleado= Convert.ToDecimal(idempleado.Text);
+
 
             // se pasan los valores de los text box a las variables temporales
+            altas.Parameters.AddWithValue("idempleado", empleado);
             altas.Parameters.AddWithValue("nombre", nombre.Text);
             altas.Parameters.AddWithValue("apellidopaterno", apellidopaterno.Text);
             altas.Parameters.AddWithValue("apellidomaterno", apellidomaterno.Text);
             altas.Parameters.AddWithValue("fechanacimiento", dt);
             altas.Parameters.AddWithValue("telefono", tel);
-            altas.Parameters.AddWithValue("sueldo", sueldo.Text);
+            altas.Parameters.AddWithValue("sueldo", sueld);
             altas.Parameters.AddWithValue("puesto", puesto.Text);
 
             conexion.Open();// se abre la conexion
@@ -127,6 +119,12 @@ namespace prueba_conexion
             conexion.Close();// se cierra la conexion
             MessageBox.Show("Empleado dado de alta");
             
+        }
+
+        private void Btnimagen_Click(object sender, EventArgs e)
+        {
+            Form VentanaImagen = new Imagenes();
+            VentanaImagen.ShowDialog();
         }
     }
 }

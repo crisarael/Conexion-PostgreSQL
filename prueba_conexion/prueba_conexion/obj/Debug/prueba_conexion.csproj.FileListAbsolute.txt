@@ -28,3 +28,4 @@ C:\Users\disco\source\repos\prueba_conexion\prueba_conexion\bin\Debug\System.Run
 C:\Users\disco\source\repos\prueba_conexion\prueba_conexion\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\disco\source\repos\prueba_conexion\prueba_conexion\bin\Debug\System.ValueTuple.xml
 C:\Users\disco\source\repos\prueba_conexion\prueba_conexion\obj\Debug\prueba_conexion.csproj.CopyComplete
+C:\Users\disco\source\repos\prueba_conexion\prueba_conexion\obj\Debug\prueba_conexion.Imagenes.resources
